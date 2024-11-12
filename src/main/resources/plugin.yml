@@ -1,0 +1,8 @@
+name: SkCord
+version: '3.0-RELEASE'
+main: net.fedustria.skcord.SkCord
+depend: [Skript]
+authors: [ Fedox, Austria7 ]
+description: Send discord webhooks with Skript!
+commands:
+  skcord:
