@@ -72,7 +72,7 @@ public class SecEmbedBuilder extends Section {
         addEntryData(new ExpressionEntryData<>("image", null, true, String.class));
         addEntryData(new ExpressionEntryData<>("author", null, true, Author.class));
         addEntryData(new ExpressionEntryData<>("fields", null, true, Object.class));
-        addEntryData(new ExpressionEntryData<>("saveInto", null, true, Object.class));
+        addEntryData(new ExpressionEntryData<>("saveInto", null, false, Object.class));
     }
 
     private Expression<String> title;
