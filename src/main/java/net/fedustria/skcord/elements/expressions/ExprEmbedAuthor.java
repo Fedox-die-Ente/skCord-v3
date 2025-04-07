@@ -10,17 +10,10 @@ import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import com.itsradiix.discordwebhook.models.embeds.Author;
+import net.fedustria.skcord.discord.model.Author;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-/**
- * © 2024 Florian O. (https://github.com/Fedox-die-Ente)
- * Created on: 9/21/2024 4:25 PM
- * <p>
- * https://www.youtube.com/watch?v=tjBCjfB3Hq8
- */
 
 @Name("Embed - Author")
 @Description("Create a new author for an embed.")
@@ -28,62 +21,62 @@ import org.jetbrains.annotations.Nullable;
 @Since("3.0-RELEASE")
 public class ExprEmbedAuthor extends SimpleExpression<Author> {
 
-    static {
-        Skript.registerExpression(ExprEmbedAuthor.class, Author.class, ExpressionType.COMBINED, "[new] author [with] name[d] %string% [and] [url %-string%] [with] [icon [url] %-string%]");
-    }
+	static {
+		Skript.registerExpression(ExprEmbedAuthor.class, Author.class, ExpressionType.COMBINED, "[new] author [with] name[d] %string% [and] [url %-string%] [with] [icon [url] %-string%]");
+	}
 
-    private Expression<String> name;
-    private Expression<String> url;
-    private Expression<String> icon;
+	private Expression<String> name;
+	private Expression<String> url;
+	private Expression<String> icon;
 
-    @Override
-    protected Author @NotNull [] get(@NotNull Event event) {
-        String name = this.name != null ? this.name.getSingle(event) : null;
-        String url = this.url != null ? this.url.getSingle(event) : null;
-        String icon = this.icon != null ? this.icon.getSingle(event) : null;
+	@Override
+	protected Author @NotNull [] get(@NotNull Event event) {
+		String name = this.name != null ? this.name.getSingle(event) : null;
+		String url = this.url != null ? this.url.getSingle(event) : null;
+		String icon = this.icon != null ? this.icon.getSingle(event) : null;
 
-        if (name != null) {
-            if (url == null && icon == null) {
-                return new Author[]{new Author(name, null, null, null)};
-            } else if (url != null && icon != null) {
-                return new Author[]{new Author(name, url, icon, null)};
-            } else if (url != null) {
-                return new Author[]{new Author(name, url, null, null)};
-            } else {
-                return new Author[]{new Author(name, null, icon, null)};
-            }
-        }
+		if (name != null) {
+			if (url == null && icon == null) {
+				return new Author[]{new Author(name, null, null)};
+			} else if (url != null && icon != null) {
+				return new Author[]{new Author(name, url, icon)};
+			} else if (url != null) {
+				return new Author[]{new Author(name, url, null)};
+			} else {
+				return new Author[]{new Author(name, null, icon)};
+			}
+		}
 
-        return new Author[0];
-    }
+		return new Author[0];
+	}
 
-    @Override
-    public boolean isSingle() {
-        return true;
-    }
+	@Override
+	public boolean isSingle() {
+		return true;
+	}
 
-    @Override
-    public @NotNull Class<? extends Author> getReturnType() {
-        return Author.class;
-    }
+	@Override
+	public @NotNull Class<? extends Author> getReturnType() {
+		return Author.class;
+	}
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
-        this.name = (Expression<String>) expressions[0];
-        this.url = (Expression<String>) expressions[1];
-        this.icon = (Expression<String>) expressions[2];
+	@Override
+	@SuppressWarnings("unchecked")
+	public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult) {
+		this.name = (Expression<String>) expressions[0];
+		this.url = (Expression<String>) expressions[1];
+		this.icon = (Expression<String>) expressions[2];
 
-        if (name == null) {
-            Skript.error("The name of the author must be set.");
-            return false;
-        }
+		if (name == null) {
+			Skript.error("The name of the author must be set.");
+			return false;
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public @NotNull String toString(@Nullable Event e, boolean debug) {
-        return "create new author";
-    }
+	@Override
+	public @NotNull String toString(@Nullable Event e, boolean debug) {
+		return "create new author";
+	}
 }
