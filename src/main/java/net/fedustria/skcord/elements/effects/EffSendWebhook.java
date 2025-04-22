@@ -9,7 +9,6 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import net.fedustria.skcord.SkCord;
 import net.fedustria.skcord.discord.DiscordWebhook;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -60,10 +59,12 @@ public class EffSendWebhook extends Effect {
 		String picture = this.picture != null ? this.picture.getSingle(event) : null;
 
 		if (message == null || webhook == null) {
-			SkCord.getPlugin().getCustomLogger().error("The message or the webhook is null.");
+			Skript.error("The message and webhook cannot be null.");
+			return;
 		}
 
 		DiscordWebhook discordWebHook = new DiscordWebhook();
+		message = message.replaceAll("<@§(\\d+)>", "<@&$1>");
 		discordWebHook.content(message);
 
 		if (name != null) {

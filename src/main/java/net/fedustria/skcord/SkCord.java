@@ -26,7 +26,9 @@ public final class SkCord extends JavaPlugin {
 		try {
 			addon.loadClasses("net.fedustria.skcord", "elements");
 		} catch (Exception e) {
-			e.printStackTrace();
+			customLogger.error("Failed to load classes: " + e.getMessage());
+			Bukkit.getPluginManager().disablePlugin(this);
+			return;
 		}
 
 		customLogger.log("SkCord has been enabled!");
@@ -46,7 +48,7 @@ public final class SkCord extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		Bukkit.getLogger().info("SkCord has been disabled!");
+		customLogger.log("SkCord has been disabled!");
 	}
 
 

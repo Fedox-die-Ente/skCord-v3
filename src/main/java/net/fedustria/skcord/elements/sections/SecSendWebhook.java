@@ -138,6 +138,7 @@ public class SecSendWebhook extends Section {
 		DiscordWebhook discordWebHook = new DiscordWebhook();
 
 		if (message != null) {
+			message = message.replaceAll("<@§(\\d+)>", "<@&$1>");
 			discordWebHook.content(message);
 		}
 

@@ -90,7 +90,9 @@ public class SecEmbedBuilder extends Section {
 		EntryContainer container = ENTRY_VALIDATOR.build().validate(sectionNode);
 		if (container == null) return false;
 		this.title = (Expression<String>) container.getOptional("title", false);
+
 		this.description = (Expression<String>) container.getOptional("description", false);
+
 		this.color = (Expression<String>) container.getOptional("color", false);
 		this.timestamp = (Expression<Boolean>) container.getOptional("timestamp", false);
 		this.footer = (Expression<EmbedFooter>) container.getOptional("footer", false);
@@ -144,6 +146,7 @@ public class SecEmbedBuilder extends Section {
 			builder.setTitle(title);
 		}
 		if (description != null) {
+			description = description.replaceAll("<@§(\\d+)>", "<@&$1>");
 			builder.setDescription(description);
 		}
 

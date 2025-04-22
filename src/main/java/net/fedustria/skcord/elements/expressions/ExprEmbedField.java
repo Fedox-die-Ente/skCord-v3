@@ -44,11 +44,12 @@ public class ExprEmbedField extends SimpleExpression<EmbedField> {
 		String name = this.name.getSingle(e);
 		String value = this.value.getSingle(e);
 		if (name != null && value != null) {
+			name = name.replaceAll("<@§(\\d+)>", "<@&$1>");
+			value = value.replaceAll("<@§(\\d+)>", "<@&$1>");
 			return new EmbedField[]{new EmbedField(name, value, inline)};
 		}
 		return new EmbedField[]{};
 	}
-
 
 	@Override
 	public boolean isSingle() {
